@@ -14,6 +14,6 @@ public interface UserService {
     void addRoleToUser(String email, String roleName);
     AppUser getUser(String email);
     List<AdminReturnUserDTO> getUsers();
-    ReturnUserDTO updateUserById(Long userId);
-    void deleteUserById(Long userId);
+//    ReturnUserDTO updateUserById(Long userId);
+//    void deleteUserById(Long userId);
 }

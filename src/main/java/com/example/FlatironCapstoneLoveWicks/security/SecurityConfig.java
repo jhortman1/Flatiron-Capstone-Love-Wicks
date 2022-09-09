@@ -61,7 +61,7 @@ public class SecurityConfig {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.authorizeRequests()
-                .antMatchers("/auth/login", "/docs/**", "/users").permitAll()
+                .antMatchers("/auth/login", "/docs/**", "/api/**").permitAll()
                 .anyRequest().authenticated();
 
         http.exceptionHandling()

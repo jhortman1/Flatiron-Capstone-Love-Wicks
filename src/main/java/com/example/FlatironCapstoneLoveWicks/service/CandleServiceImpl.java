@@ -1,4 +1,4 @@
-package com.example.FlatironCapstoneLoveWicks.service;
-
-public class CandleServiceImpl implements CandleService{
-}
+//package com.example.FlatironCapstoneLoveWicks.service;
+//
+//public class CandleServiceImpl implements CandleService{
+//}

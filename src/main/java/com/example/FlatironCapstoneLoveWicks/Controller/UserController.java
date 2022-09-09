@@ -21,11 +21,12 @@ public class UserController {
     @Autowired
     UserServiceImpl userService;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/users")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<List<AdminReturnUserDTO>>getUsers(){
         return ResponseEntity.ok().body(userService.getUsers());
     }
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/signup")
     public ResponseEntity<ReturnUserDTO> signUpCustomer(@RequestBody CreateUserDTO user){
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/signup").toUriString());
