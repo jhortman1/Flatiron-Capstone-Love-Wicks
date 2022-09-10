@@ -3,12 +3,13 @@ package com.example.FlatironCapstoneLoveWicks.Controller;
 import com.example.FlatironCapstoneLoveWicks.DTO.AdminReturnUserDTO;
 import com.example.FlatironCapstoneLoveWicks.DTO.CreateUserDTO;
 import com.example.FlatironCapstoneLoveWicks.DTO.ReturnUserDTO;
+import com.example.FlatironCapstoneLoveWicks.DTO.UpdateUserDTO;
+import com.example.FlatironCapstoneLoveWicks.model.AppUser;
 import com.example.FlatironCapstoneLoveWicks.model.Role;
 import com.example.FlatironCapstoneLoveWicks.service.UserServiceImpl;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -47,6 +48,20 @@ public class UserController {
     public ResponseEntity<?> assignRoleToUser(@RequestBody RoleToUserForm form){
         userService.addRoleToUser(form.getEmail(),form.getRoleName());
         return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/user/{id}")
+    public ResponseEntity<ReturnUserDTO>updateUser(@PathVariable("id") Long id, @RequestBody UpdateUserDTO updateUserDTO)
+    {
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/user/{id}").toUriString());
+        return ResponseEntity.created(uri).body(userService.updateUserById(id,updateUserDTO));
+    }
+
+    @DeleteMapping("/user/{id}")
+    public ResponseEntity<ReturnUserDTO> deactivateUser(@PathVariable("id")Long id)
+    {
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/user/{id}").toUriString());
+        return ResponseEntity.created(uri).body(userService.deleteUserById(id));
     }
 }
 @Data

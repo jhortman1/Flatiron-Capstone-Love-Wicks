@@ -3,6 +3,7 @@ package com.example.FlatironCapstoneLoveWicks.service;
 import com.example.FlatironCapstoneLoveWicks.DTO.AdminReturnUserDTO;
 import com.example.FlatironCapstoneLoveWicks.DTO.CreateUserDTO;
 import com.example.FlatironCapstoneLoveWicks.DTO.ReturnUserDTO;
+import com.example.FlatironCapstoneLoveWicks.DTO.UpdateUserDTO;
 import com.example.FlatironCapstoneLoveWicks.model.AppUser;
 import com.example.FlatironCapstoneLoveWicks.model.Role;
 import com.example.FlatironCapstoneLoveWicks.repository.RoleRepository;
@@ -10,12 +11,15 @@ import com.example.FlatironCapstoneLoveWicks.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -69,5 +73,23 @@ public class UserServiceImpl implements UserService {
     public List<AdminReturnUserDTO> getUsers() {
         log.info("Getting All Users");
         return userRepository.findAll().stream().map(user -> modelMapper.map(user, AdminReturnUserDTO.class)).toList();
+    }
+
+    @Override
+    public ReturnUserDTO updateUserById(Long userId, UpdateUserDTO updateUserDTO) {
+        AppUser newUser = userRepository.findById(userId).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
+        newUser.setEmail(updateUserDTO.getEmail());
+        newUser.setName(updateUserDTO.getName());
+        newUser.setAddress(updateUserDTO.getAddress());
+        newUser.setPhone(updateUserDTO.getPhone());
+        newUser.setIsActive(updateUserDTO.getIsActive());
+        return modelMapper.map(newUser, ReturnUserDTO.class);
+    }
+
+    @Override
+    public ReturnUserDTO deleteUserById(Long userId) {
+        AppUser deleteUser = userRepository.findById(userId).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
+        deleteUser.setIsActive(false);
+        return modelMapper.map(deleteUser, ReturnUserDTO.class);
     }
 }

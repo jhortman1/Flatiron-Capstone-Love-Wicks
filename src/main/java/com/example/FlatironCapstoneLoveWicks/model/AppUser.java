@@ -35,16 +35,19 @@ public class AppUser implements UserDetails {
     @NotNull @Length(min = 5)
     private String password;
 
+    @NotNull
+    private Boolean isActive;
+
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles = new ArrayList<>();
 
-    @OneToMany (mappedBy = "appUser")
-    private List<Order> orders = new ArrayList<>();
+//    @OneToMany (mappedBy = "appUser")
+//    private List<Order> orders = new ArrayList<>();
 
-    public void addOrder(Order order)
-    {
-        orders.add(order);
-    }
+//    public void addOrder(Order order)
+//    {
+//        orders.add(order);
+//    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

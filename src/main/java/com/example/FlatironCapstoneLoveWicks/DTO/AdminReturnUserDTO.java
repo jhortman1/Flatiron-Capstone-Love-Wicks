@@ -12,5 +12,6 @@ public class AdminReturnUserDTO {
     private String name;
     private String address;
     private String email;
-    private Long phone;
+    private String phone;
+    private Boolean isActive;
 }
