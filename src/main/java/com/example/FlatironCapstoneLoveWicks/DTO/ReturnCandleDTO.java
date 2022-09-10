@@ -7,10 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AdminReturnUserDTO {
+public class ReturnCandleDTO {
     private Long id;
     private String name;
-    private String address;
-    private String email;
-    private Long phone;
+    private String description;
+    private int photoId;
+    private double price;
+    private boolean inStock;
 }

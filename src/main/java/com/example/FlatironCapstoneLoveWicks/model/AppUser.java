@@ -38,13 +38,13 @@ public class AppUser implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles = new ArrayList<>();
 
-//    @OneToMany (mappedBy = "appUser")
-//    private List<Order> orders = new ArrayList<>();
-//
-//    public void addOrder(Order order)
-//    {
-//        orders.add(order);
-//    }
+    @OneToMany (mappedBy = "appUser")
+    private List<Order> orders = new ArrayList<>();
+
+    public void addOrder(Order order)
+    {
+        orders.add(order);
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
