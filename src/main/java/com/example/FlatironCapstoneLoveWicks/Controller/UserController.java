@@ -9,6 +9,7 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -20,6 +21,8 @@ import java.util.List;
 public class UserController {
     @Autowired
     UserServiceImpl userService;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/users")
@@ -30,6 +33,7 @@ public class UserController {
     @PostMapping("/signup")
     public ResponseEntity<ReturnUserDTO> signUpCustomer(@RequestBody CreateUserDTO user){
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/signup").toUriString());
+        passwordEncoder.encode(user.getPassword());
         return ResponseEntity.created(uri).body(userService.saveUser(user));
     }
 

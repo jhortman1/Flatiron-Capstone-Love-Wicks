@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface CandleService {
     ReturnCandleDTO createCandle(CreateCandleDTO candleDTO);
-    ReturnCandleDTO updateCandle(ReturnCandleDTO candle);
+    ReturnCandleDTO updateCandle(Long id, ReturnCandleDTO candle);
     ReturnCandleDTO getCandleById (Long candleId);
     ReturnCandleDTO deleteCandleById(Long candleId);
     List<ReturnCandleDTO> getAllCandles();

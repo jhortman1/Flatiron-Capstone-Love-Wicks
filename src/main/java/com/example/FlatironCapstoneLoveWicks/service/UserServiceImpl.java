@@ -14,6 +14,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -32,9 +33,13 @@ public class UserServiceImpl implements UserService {
     UserRepository userRepository;
     @Autowired
     ModelMapper modelMapper;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Override
     public ReturnUserDTO saveUser(CreateUserDTO userDTO) {
+        String encodedPW = passwordEncoder.encode(userDTO.getPassword());
+        userDTO.setPassword(encodedPW);
         AppUser newUser = modelMapper.map(userDTO,AppUser.class);
         log.info("Saving User {} to Database",userDTO.getName());
         return modelMapper.map(userRepository.save(newUser), ReturnUserDTO.class);
@@ -55,9 +60,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public AppUser getUser(String email) {
+    public ReturnUserDTO getUser(String email) {
         log.info("Getting User {} from Database",email);
-        return userRepository.findByEmail(email).get();
+        return modelMapper.map(userRepository.findByEmail(email).get(),ReturnUserDTO.class);
     }
 
     @Override

@@ -40,11 +40,11 @@ public class CandleController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @PutMapping("/candle")
-    public ResponseEntity<ReturnCandleDTO> updateCandle(@RequestBody ReturnCandleDTO candleDTO)
+    @PutMapping("/candle/{id}")
+    public ResponseEntity<ReturnCandleDTO> updateCandleById(@PathVariable("id") Long id, @RequestBody ReturnCandleDTO candleDTO)
     {
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/candle").toUriString());
-        return ResponseEntity.created(uri).body(candleService.updateCandle(candleDTO));
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/candle/{id}").toUriString());
+        return ResponseEntity.created(uri).body(candleService.updateCandle(id, candleDTO));
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
