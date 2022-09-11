@@ -4,15 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import java.util.List;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReturnOrderDTO {
+public class DeleteOrderDTO {
     private Long id;
     private Long customerId;
     private Boolean open;
-    List<Long>candles;
 }

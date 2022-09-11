@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,12 +13,14 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Order {
+public class CandleOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @ManyToOne
     private AppUser appUser;
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @NotNull
+    private Boolean open;
+    @OneToMany(mappedBy = "candleOrder", cascade = CascadeType.ALL)
     private List<OrderDetails> orderDetails = new ArrayList<>();
 }

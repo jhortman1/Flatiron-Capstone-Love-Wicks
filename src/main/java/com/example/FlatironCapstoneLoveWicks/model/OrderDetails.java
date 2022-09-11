@@ -10,14 +10,13 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="Order_Details")
+@Table
 public class OrderDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @ManyToOne
-    @JoinColumn
-    private Order order;
+    private CandleOrder candleOrder;
     @ManyToOne
     private Candle candle;
 }

@@ -27,6 +27,6 @@ public class Candle {
     private double price;
     @NotNull
     private boolean inStock;
-    @OneToMany
+    @OneToMany(mappedBy = "candle", cascade = CascadeType.ALL)
     List<OrderDetails> orderDetails = new ArrayList<>();
 }
