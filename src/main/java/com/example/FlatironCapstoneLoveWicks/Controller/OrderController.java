@@ -1,9 +1,6 @@
 package com.example.FlatironCapstoneLoveWicks.Controller;
 
-import com.example.FlatironCapstoneLoveWicks.DTO.CreateOrderDTO;
-import com.example.FlatironCapstoneLoveWicks.DTO.DeleteOrderDTO;
-import com.example.FlatironCapstoneLoveWicks.DTO.OrderDTO;
-import com.example.FlatironCapstoneLoveWicks.DTO.ReturnOrderDTO;
+import com.example.FlatironCapstoneLoveWicks.DTO.*;
 import com.example.FlatironCapstoneLoveWicks.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -42,8 +39,8 @@ public class OrderController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping("orders")
-    public ResponseEntity<List<CreateOrderDTO>> getAllOrders()
+    @GetMapping("/orders")
+    public ResponseEntity<List<GetAllOrdersDTO>> getAllOrders()
     {
         return  ResponseEntity.ok().body(orderService.getAllOrders());
     }

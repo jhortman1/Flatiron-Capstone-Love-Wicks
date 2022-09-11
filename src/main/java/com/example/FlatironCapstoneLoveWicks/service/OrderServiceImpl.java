@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.persistence.criteria.Order;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +71,12 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public List<CreateOrderDTO> getAllOrders() {
-        return orderRepository.findAll().stream().map(candleOrder->modelMapper.map(candleOrder,CreateOrderDTO.class)).toList();
+    public List<GetAllOrdersDTO> getAllOrders() {
+        List<CandleOrder>orders = orderRepository.findAll().stream().toList();
+        List<GetAllOrdersDTO>getAllOrders=new ArrayList<>();
+        for (CandleOrder candleOrder:orders) {
+            getAllOrders.add(new GetAllOrdersDTO(candleOrder.getId(),candleOrder.getOpen()));
+        }
+        return getAllOrders;
     }
 }

@@ -36,11 +36,11 @@ public class FlatironCapstoneLoveWicksApplication {
 //			userService.addRoleToUser("MaryL@email.com","ROLE_USER");
 //			userService.addRoleToUser("FrankL@email.com","ROLE_USER");
 //
-////			candleService.createCandle(new CreateCandleDTO("Candle1","Candle 1 Description...",1,10.0,true));
-////			candleService.createCandle(new CreateCandleDTO("Candle2","Candle 2 Description...",2,20.0,true));
-////			candleService.createCandle(new CreateCandleDTO("Candle3","Candle 3 Description...",3,30.0,true));
-////			candleService.createCandle(new CreateCandleDTO("Candle4","Candle 4 Description...",4,40.0,true));
-////			candleService.createCandle(new CreateCandleDTO("Candle5","Candle 5 Description...",5,50.0,true));
+//			candleService.createCandle(new CreateCandleDTO("Candle1","Candle 1 Description...",1,10.0,true));
+//			candleService.createCandle(new CreateCandleDTO("Candle2","Candle 2 Description...",2,20.0,true));
+//			candleService.createCandle(new CreateCandleDTO("Candle3","Candle 3 Description...",3,30.0,true));
+//			candleService.createCandle(new CreateCandleDTO("Candle4","Candle 4 Description...",4,40.0,true));
+//			candleService.createCandle(new CreateCandleDTO("Candle5","Candle 5 Description...",5,50.0,true));
 //
 //		};
 	//}
