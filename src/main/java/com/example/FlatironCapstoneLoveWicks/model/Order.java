@@ -18,6 +18,6 @@ public class Order {
     private Long id;
     @ManyToOne
     private AppUser appUser;
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderDetails> orderDetails = new ArrayList<>();
 }

@@ -16,6 +16,7 @@ public class OrderDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @ManyToOne
+    @JoinColumn
     private Order order;
     @ManyToOne
     private Candle candle;
