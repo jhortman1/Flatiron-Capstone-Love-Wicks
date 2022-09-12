@@ -44,6 +44,11 @@ public class UserServiceImpl implements UserService {
     public ReturnUserDTO saveUser(CreateUserDTO userDTO) {
         String encodedPW = passwordEncoder.encode(userDTO.getPassword());
         userDTO.setPassword(encodedPW);
+        userDTO.setIsActive(true);
+        if(userRepository.findByEmail(userDTO.getEmail()).isPresent())
+        {
+            throw new ResponseStatusException(HttpStatus.CONFLICT,"Email already exists");
+        }
         AppUser newUser = modelMapper.map(userDTO,AppUser.class);
         log.info("Saving User {} to Database",userDTO.getName());
         return modelMapper.map(userRepository.save(newUser), ReturnUserDTO.class);
@@ -72,7 +77,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<AdminReturnUserDTO> getUsers() {
         log.info("Getting All Users");
-        return userRepository.findAll().stream().map(user -> modelMapper.map(user, AdminReturnUserDTO.class)).toList();
+        return userRepository.findAll().stream().filter(user->user.getIsActive()).map(user -> modelMapper.map(user, AdminReturnUserDTO.class)).toList();
     }
 
     @Override

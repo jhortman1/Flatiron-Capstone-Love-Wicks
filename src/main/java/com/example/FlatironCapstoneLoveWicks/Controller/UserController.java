@@ -37,26 +37,26 @@ public class UserController {
         passwordEncoder.encode(user.getPassword());
         return ResponseEntity.created(uri).body(userService.saveUser(user));
     }
-
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/role/save")
     public ResponseEntity<Role> saveRole(@RequestBody Role role){
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/role/save").toUriString());
         return ResponseEntity.created(uri).body(userService.saveRole(role));
     }
-
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/role/assignRoleToUser")
     public ResponseEntity<?> assignRoleToUser(@RequestBody RoleToUserForm form){
         userService.addRoleToUser(form.getEmail(),form.getRoleName());
         return ResponseEntity.ok().build();
     }
-
+    @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping("/user/{id}")
     public ResponseEntity<ReturnUserDTO>updateUser(@PathVariable("id") Long id, @RequestBody UpdateUserDTO updateUserDTO)
     {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/user/{id}").toUriString());
         return ResponseEntity.created(uri).body(userService.updateUserById(id,updateUserDTO));
     }
-
+    @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping("/user/{id}")
     public ResponseEntity<ReturnUserDTO> deactivateUser(@PathVariable("id")Long id)
     {
