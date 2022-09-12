@@ -7,9 +7,11 @@ import com.example.FlatironCapstoneLoveWicks.service.CandleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.Servlet;
+import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 
@@ -18,6 +20,8 @@ import java.util.List;
 public class CandleController {
     @Autowired
     CandleService candleService;
+
+    private byte[] photoId;
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/candles")
@@ -37,6 +41,8 @@ public class CandleController {
     public ResponseEntity<ReturnCandleDTO> createCandle(@RequestBody CreateCandleDTO candleDTO)
     {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/candle").toUriString());
+        candleDTO.setPhotoId(photoId);
+        this.photoId = null;
         return ResponseEntity.created(uri).body(candleService.createCandle(candleDTO));
     }
 
@@ -54,5 +60,10 @@ public class CandleController {
     {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/candle/{id}").toUriString());
         return ResponseEntity.created(uri).body(candleService.deleteCandleById(id));
+    }
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping("/upload")
+    public void uploadImage(@RequestParam("imageFile") MultipartFile file) throws IOException {
+        this.photoId = file.getBytes();
     }
 }

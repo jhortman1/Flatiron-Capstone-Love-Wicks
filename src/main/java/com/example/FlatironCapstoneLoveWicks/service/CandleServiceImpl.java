@@ -62,6 +62,6 @@ public class CandleServiceImpl implements CandleService{
     @Override
     public List<ReturnCandleDTO> getAllCandles() {
         log.info("Getting all candles from Database");
-        return candleRepository.findAll().stream().map(candle -> modelMapper.map(candle, ReturnCandleDTO.class)).toList();
+        return candleRepository.findAll().stream().filter(candle -> candle.isInStock()).map(candle -> modelMapper.map(candle, ReturnCandleDTO.class)).toList();
     }
 }
