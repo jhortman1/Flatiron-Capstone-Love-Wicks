@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class CreateCandleDTO {
     private String name;
     private String description;
-    private int photoId;
+    private byte[] photoId;
     private double price;
     private boolean inStock;
 }

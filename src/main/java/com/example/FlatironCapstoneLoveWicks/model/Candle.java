@@ -22,7 +22,8 @@ public class Candle {
     @NotNull
     private String description;
     @NotNull
-    private int photoId;
+    @Column(name = "picByte", length = 1000)
+    private byte[] photoId;
     @NotNull
     private double price;
     @NotNull

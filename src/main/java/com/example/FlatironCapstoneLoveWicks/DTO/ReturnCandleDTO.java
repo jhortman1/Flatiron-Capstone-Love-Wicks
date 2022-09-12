@@ -11,7 +11,7 @@ public class ReturnCandleDTO {
     private Long id;
     private String name;
     private String description;
-    private int photoId;
+    private byte[] photoId;
     private double price;
     private boolean inStock;
 }
