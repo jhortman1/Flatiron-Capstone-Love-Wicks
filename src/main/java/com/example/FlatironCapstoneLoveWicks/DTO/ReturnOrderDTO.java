@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReturnOrderDTO {
-    private Long id;
+    private Long orderId;
     private Long customerId;
     private Boolean open;
     List<Long>candles;
