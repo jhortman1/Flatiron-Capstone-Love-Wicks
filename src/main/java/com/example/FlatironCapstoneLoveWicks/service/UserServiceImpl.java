@@ -1,9 +1,6 @@
 package com.example.FlatironCapstoneLoveWicks.service;
 
-import com.example.FlatironCapstoneLoveWicks.DTO.AdminReturnUserDTO;
-import com.example.FlatironCapstoneLoveWicks.DTO.CreateUserDTO;
-import com.example.FlatironCapstoneLoveWicks.DTO.ReturnUserDTO;
-import com.example.FlatironCapstoneLoveWicks.DTO.UpdateUserDTO;
+import com.example.FlatironCapstoneLoveWicks.DTO.*;
 import com.example.FlatironCapstoneLoveWicks.model.AppUser;
 import com.example.FlatironCapstoneLoveWicks.model.Role;
 import com.example.FlatironCapstoneLoveWicks.repository.RoleRepository;
@@ -50,6 +47,7 @@ public class UserServiceImpl implements UserService {
             throw new ResponseStatusException(HttpStatus.CONFLICT,"Email already exists");
         }
         AppUser newUser = modelMapper.map(userDTO,AppUser.class);
+        addRoleToUser(newUser.getEmail(),"ROLE_USER");
         log.info("Saving User {} to Database",userDTO.getName());
         return modelMapper.map(userRepository.save(newUser), ReturnUserDTO.class);
     }
