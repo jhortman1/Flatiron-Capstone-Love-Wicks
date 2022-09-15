@@ -47,7 +47,6 @@ public class UserServiceImpl implements UserService {
             throw new ResponseStatusException(HttpStatus.CONFLICT,"Email already exists");
         }
         AppUser newUser = modelMapper.map(userDTO,AppUser.class);
-        addRoleToUser(newUser.getEmail(),"ROLE_USER");
         log.info("Saving User {} to Database",userDTO.getName());
         return modelMapper.map(userRepository.save(newUser), ReturnUserDTO.class);
     }

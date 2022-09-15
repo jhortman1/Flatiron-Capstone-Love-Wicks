@@ -56,6 +56,7 @@ public class CandleServiceImpl implements CandleService{
         log.info("Changing Candle Id {} to out of stock in Database",candleId);
         Candle deletedCandle = candleRepository.findById(candleId).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
         deletedCandle.setInStock(false);
+        candleRepository.save(deletedCandle);
         return modelMapper.map(deletedCandle, ReturnCandleDTO.class);
     }
 

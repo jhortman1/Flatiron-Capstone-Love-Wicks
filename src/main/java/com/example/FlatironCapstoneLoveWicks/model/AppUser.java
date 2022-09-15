@@ -48,6 +48,7 @@ public class AppUser implements UserDetails {
     {
         candleOrders.add(candleOrder);
     }
+    public void addRole(Role role) {roles.add(role);}
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
