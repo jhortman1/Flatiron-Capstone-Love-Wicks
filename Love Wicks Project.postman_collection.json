@@ -1,0 +1,545 @@
+{
+	"info": {
+		"_postman_id": "e2395e42-f5c1-4784-8a97-c926fa7f070b",
+		"name": "Love Wicks Project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7325332"
+	},
+	"item": [
+		{
+			"name": "Signup",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"James Hortman\",\r\n    \"address\":\"12345 Main Street\",\r\n    \"email\":\"JamesH@email.com\",\r\n    \"phone\":5555550168,\r\n    \"password\":\"pw1234\",\r\n    \"isActive\":true\r\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/api/signup",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Signin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const environmentToken = \"bearerToken\"; // the name of the environment variable\r",
+							"const newToken = pm.response.json().access_token;\r",
+							"\r",
+							"// verify that we have a token value\r",
+							"pm.test(\"access token value should be present\", function() {\r",
+							"  pm.expect(newToken.length > 0);\r",
+							"});\r",
+							"\r",
+							"// save the new token in our environment variable\r",
+							"pm.environment.set(environmentToken, newToken);\r",
+							"\r",
+							"// simple verification that the value was saved as intended\r",
+							"pm.test(\"Token environment variable should be updated\", function() {\r",
+							"  const checkToken = pm.environment.get(environmentToken);\r",
+							"  pm.expect(checkToken).to.eql(newToken);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"JamesH@email.com\",\r\n    \"password\":\"pw1234\"\r\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/auth/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save Role",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxLEphbWVzSEBlbWFpbC5jb20iLCJpc3MiOiJMb3ZlX1dpY2tzLmNvbSIsImlhdCI6MTY2MzEzMTE5NSwiZXhwIjoxNjYzMjE3NTk1fQ.QaYq92ezR8XD4tix6fDPz6En6jDb7JoldYh3GzLfi_2MGru9Lik4J-yZ7x6NVAeK5FZUNSAexHFN8DK76ejYyg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"ROLE_ADMIN\"\r\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/api/role/save",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"role",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assign Role",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxLEphbWVzSEBlbWFpbC5jb20iLCJpc3MiOiJMb3ZlX1dpY2tzLmNvbSIsImlhdCI6MTY2MzEzMTE5NSwiZXhwIjoxNjYzMjE3NTk1fQ.QaYq92ezR8XD4tix6fDPz6En6jDb7JoldYh3GzLfi_2MGru9Lik4J-yZ7x6NVAeK5FZUNSAexHFN8DK76ejYyg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"JamesH@email.com\",\r\n    \"roleName\":\"ROLE_ADMIN\"\r\n\r\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/api/role/assignRoleToUser",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"role",
+						"assignRoleToUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User Information",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"James Hortman Updated\",\r\n    \"address\":\"12345 Main Street\",\r\n    \"email\":\"JamesH@email.com Updated\",\r\n    \"phone\":5555550168,\r\n    \"isActive\":true\r\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/api/user/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Get List of Customers",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "351f64cf-c549-411a-a48d-53193d8a5094",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "user",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/customers",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deactivate User By Customer by ID",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/user/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Add Candle to Candle List",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"New Candle4\",\r\n    \"description\":\"New Candle4 Description...\",\r\n    \"photoId\":\"100\",\r\n    \"price\":20.0,\r\n    \"inStock\":true\r\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/api/candle",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"candle"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get List of Candles",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/candles",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"candles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Candle By Id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/candle/7",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"candle",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Get Candle By Id",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"name\": \"Updated Candle1\",\r\n        \"description\": \"Updated Candle1 Description...\",\r\n        \"photoId\": 11111,\r\n        \"price\": 111.0,\r\n        \"inStock\": true\r\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/api/candle/7",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"candle",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Mark Candle Out of Stock by CandleId",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/candle/5",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"candle",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Submit order",
+			"request": {
+				"auth": {
+					"type": "bearer"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"customerId\": 1,\r\n    \"open\":true,\r\n    \"candles\":\r\n    [\r\n        2,\r\n        3,\r\n        4\r\n    ]\r\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/api/order",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Get Customer Orders by CustomerId",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/order/5",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"order",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Orders",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/orders",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Customer Delete Order By Id",
+			"request": {
+				"auth": {
+					"type": "bearer"
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/order/5",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"order",
+						"5"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzLEphbWVzSEBlbWFpbC5jb20iLCJpc3MiOiJMb3ZlX1dpY2tzLmNvbSIsImlhdCI6MTY2Mjc3MzM3NCwiZXhwIjoxNjYyODU5Nzc0fQ.ABOelI-j6qXOUtNyqScYM9lEtujLQ6av1a7IfPw66wZAihmv3SO90vPbXXop3Jg-4U5D7xK868J6sIe6MsPRwg",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
