@@ -66,8 +66,7 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public void deleteOrderById(Long orderId) {
-        CandleOrder deleteCandleOrder = orderRepository.findById(orderId).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
-        orderRepository.delete(deleteCandleOrder);
+        orderRepository.deleteById(orderId);
     }
 
     @Override

@@ -9,8 +9,6 @@ import com.example.FlatironCapstoneLoveWicks.repository.CandleRepository;
 import com.example.FlatironCapstoneLoveWicks.repository.OrderDetailsRepository;
 import com.example.FlatironCapstoneLoveWicks.repository.OrderRepository;
 import com.example.FlatironCapstoneLoveWicks.repository.UserRepository;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -24,7 +22,9 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.BDDMockito.willDoNothing;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class OrderServiceImplTest {
@@ -101,4 +101,12 @@ class OrderServiceImplTest {
         List<GetAllOrdersDTO>actual = orderService.getAllOrders();
         assertEquals(getAllOrders,actual);
     }
+    @Test
+    void deleteOrderById() {
+        Long id = 1L;
+        willDoNothing().given(orderRepository).deleteById(id);
+        orderService.deleteOrderById(id);
+        verify(orderRepository, times(1)).deleteById(id);
+    }
+
 }
