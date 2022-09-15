@@ -45,10 +45,9 @@ public class CandleServiceImpl implements CandleService{
     @Override
     public ReturnCandleDTO getCandleById(Long candleId) {
         log.info("Getting Candle id {} from Database",candleId);
-        return modelMapper.
-                map(candleRepository.findById(candleId)
-                        .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND)),
-                ReturnCandleDTO.class);
+        Candle returnCandle = candleRepository.findById(candleId).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
+        ReturnCandleDTO returnCandleDTO = modelMapper.map(returnCandle,ReturnCandleDTO.class);
+        return returnCandleDTO;
     }
 
     @Override
